@@ -12,8 +12,8 @@ permissions:
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: my-app-repo
-  ECS_SERVICE: my-app-service
-  ECS_CLUSTER: my-app-cluster
+  ECS_SERVICE: my-ecs-service
+  ECS_CLUSTER: my-ecs-cluster
   CONTAINER_NAME: my-app-container
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
 
