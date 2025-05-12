@@ -3,6 +3,26 @@
 # The ECS service is configured to run one instance of the task definition.
 # It also includes network configuration for the service, specifying subnets and security groups.
 # The ECR repository is set to prevent destruction to avoid accidental data loss.
+resource "aws_security_group" "ecs_tasks" {
+  name        = "ecs-tasks-sg"
+  description = "Allow inbound traffic for ECS tasks"
+  vpc_id      = aws_vpc.main.id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_ecs_cluster" "my_cluster" {
   name = var.ecs_cluster_name
 }
@@ -76,8 +96,8 @@ resource "aws_ecs_service" "my_service" {
   launch_type = "FARGATE"
 
   network_configuration {
-    subnets          = var.subnet_ids
-    security_groups  = [var.security_group_id]
+    subnets          = [aws_subnet.public.id]  # Or use private subnet if you prefer
+    security_groups  = [aws_security_group.ecs_tasks.id]
     assign_public_ip = true
   }
 }

@@ -48,18 +48,6 @@ variable "ecs_task_definition_name" {
   default     = "my-ecs-task"
 }
 
-variable "subnet_ids" {
-  description = "List of subnet IDs for the ECS service"
-  type        = list(string)
-  default     = ["subnet-01add066c918e7f25"]
-}
-
-variable "security_group_id" {
-  description = "The security group ID for the ECS service"
-  type        = string
-  default = "sg-019f60acd9c68e922"
-}
-
 variable "ecs_task_family" {
   description = "The family name of the ECS task definition"
   type        = string
