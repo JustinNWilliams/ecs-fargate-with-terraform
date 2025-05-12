@@ -1,0 +1,26 @@
+1. Create OIDC in AWS IAM with below configuration 
+  Provider: https://token.actions.githubusercontent.com
+  Audience: sts.amazonaws.com
+2. Create One new IAM role with below trust relations. For ease of access, we will create the role with Admin privileged. 
+    Please keep in mind this is not  the correct way of doing in prod. In prod use least privileges for the role.
+  replace: your_account_id and your_repo
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws:iam::<your_account_id>:oidc-provider/token.actions.githubusercontent.com"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringLike": {
+                    "token.actions.githubusercontent.com:sub": "repo:<your_repo>/*"
+                },
+                "StringEquals": {
+                    "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+                }
+            }
+        }
+    ]
+}
