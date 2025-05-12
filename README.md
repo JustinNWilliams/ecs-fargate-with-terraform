@@ -10,7 +10,6 @@ my-cicd-project
 │   └── workflows
 │       └── deploy.yml
 ├── terraform
-│   ├── main.tf
 │   ├── variables.tf
 │   ├── outputs.tf
 │   ├── ecr.tf
