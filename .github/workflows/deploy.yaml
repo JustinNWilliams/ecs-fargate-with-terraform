@@ -1,0 +1,26 @@
+name: Deploy to AWS ECS
+
+on:
+  push:
+    branches: [ main ]
+  #pull_request:
+    #branches: [ main ]
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: my-app-repo
+  ECS_SERVICE: my-app-service
+  ECS_CLUSTER: my-app-cluster
+  CONTAINER_NAME: my-app-container
+  AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Print AWS Account ID
+      run: echo "AWS Account ID is $AWS_ACCOUNT_ID"
+    
