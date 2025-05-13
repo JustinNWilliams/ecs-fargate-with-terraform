@@ -3,6 +3,10 @@
   Audience: sts.amazonaws.com
 2. Create One new IAM role with below trust relations. For ease of access, we will create the role with Admin privileged. 
     Please keep in mind this is not  the correct way of doing in prod. In prod use least privileges for the role.
+  Identity provider: https://token.actions.githubusercontent.com
+  Audience: sts.amazonaws.com
+  GitHub organization: <your organization>. In my case it is nspacer. https://github.com/nspacer/
+  Name: github-actions-role
   replace: your_account_id and your_repo
   {
     "Version": "2012-10-17",
